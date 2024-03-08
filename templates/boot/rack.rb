@@ -1,21 +1,10 @@
-require "foobara/rack_connector"
+default_serializers = [
+  Foobara::CommandConnectors::Serializers::ErrorsSerializer,
+  Foobara::CommandConnectors::Serializers::JsonSerializer
+]
 
-rack_connector = Foobara::CommandConnectors::RackConnector.new
+rack_connector = Foobara::CommandConnectors::Http::Rack.new(default_serializers:)
 
-RESQUE_SCHEDULER_CONNECTOR = rack_connector
+# rack_connector.connect(SomeCommandOrOrgOrDomain, suffix: "Atom", atomic_entities: true)
 
-# Connecting commands gives an AsyncAt version of the command.
-# rack_connector.connect(SomeCommandOrDomainOrOrganization)
-
-rack_connector.cron(
-  [
-    #   Minute (0-59)
-    #   | Hour (0-23)
-    #   | | Day-of-Month (1-31)
-    #   | | | Month (1-12)
-    #   | | | | Day-of-Week (0-6)
-    #   | | | | | Timezone
-    #   | | | | | | Command, Inputs
-    # ["* * * * *", SomeCommand]
-  ]
-)
+RACK_CONNECTOR = rack_connector
