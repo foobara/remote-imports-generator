@@ -6,7 +6,7 @@ module Foobara
       class WriteRackConnectorToDisk < Foobara::Generators::WriteGeneratedFilesToDisk
         class << self
           def generator_key
-            "rack_connector"
+            "rack-connector"
           end
         end
 
