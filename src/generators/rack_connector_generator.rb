@@ -1,12 +1,12 @@
 module Foobara
   module Generators
-    module ResqueSchedulerConnectorGenerator
+    module RackConnectorGenerator
       module Generators
-        class ResqueSchedulerConnectorGenerator < Foobara::FilesGenerator
+        class RackConnectorGenerator < Foobara::FilesGenerator
           class << self
             def manifest_to_generator_classes(manifest)
               case manifest
-              when ResqueSchedulerConnectorConfig
+              when RackConnectorConfig
                 [
                   Generators::GemfileGenerator
                 ]
@@ -18,7 +18,7 @@ module Foobara
             end
           end
 
-          alias resque_scheduler_connector_config relevant_manifest
+          alias rack_connector_config relevant_manifest
 
           def templates_dir
             # :nocov:
@@ -29,12 +29,12 @@ module Foobara
           # TODO: promote this up to base project
           def ==(other)
             # :nocov:
-            self.class == other.class && resque_scheduler_connector_config == other.resque_scheduler_connector_config
+            self.class == other.class && rack_connector_config == other.rack_connector_config
             # :nocov:
           end
 
           def hash
-            resque_scheduler_connector_config.hash
+            rack_connector_config.hash
           end
         end
       end

@@ -1,19 +1,19 @@
-require_relative "generate_resque_scheduler_connector"
+require_relative "generate_rack_connector"
 
 module Foobara
   module Generators
-    module ResqueSchedulerConnectorGenerator
-      class WriteResqueSchedulerConnectorToDisk < Foobara::Generators::WriteGeneratedFilesToDisk
+    module RackConnectorGenerator
+      class WriteRackConnectorToDisk < Foobara::Generators::WriteGeneratedFilesToDisk
         class << self
           def generator_key
-            "resque_scheduler_connector"
+            "rack_connector"
           end
         end
 
-        depends_on GenerateResqueSchedulerConnector
+        depends_on GenerateRackConnector
 
         inputs do
-          resque_scheduler_connector_config ResqueSchedulerConnectorConfig, :required
+          rack_connector_config RackConnectorConfig, :required
           # TODO: should be able to delete this and inherit it
           output_directory :string
         end
@@ -37,9 +37,9 @@ module Foobara
         end
 
         def generate_file_contents
-          # TODO: just pass this in as the inputs instead of the resque_scheduler_connector??
-          self.paths_to_source_code = run_subcommand!(GenerateResqueSchedulerConnector,
-                                                      resque_scheduler_connector_config.attributes)
+          # TODO: just pass this in as the inputs instead of the rack_connector??
+          self.paths_to_source_code = run_subcommand!(GenerateRackConnector,
+                                                      rack_connector_config.attributes)
         end
 
         def run_post_generation_tasks

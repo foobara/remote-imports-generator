@@ -1,16 +1,16 @@
 require "pathname"
 
-require_relative "resque_scheduler_connector_config"
+require_relative "rack_connector_config"
 
 module Foobara
   module Generators
-    module ResqueSchedulerConnectorGenerator
-      class GenerateResqueSchedulerConnector < Foobara::Generators::Generate
+    module RackConnectorGenerator
+      class GenerateRackConnector < Foobara::Generators::Generate
         class MissingManifestError < RuntimeError; end
 
         possible_error MissingManifestError
 
-        inputs ResqueSchedulerConnectorConfig
+        inputs RackConnectorConfig
 
         def execute
           include_non_templated_files
@@ -27,7 +27,7 @@ module Foobara
         attr_accessor :manifest_data
 
         def base_generator
-          Generators::ResqueSchedulerConnectorGenerator
+          Generators::RackConnectorGenerator
         end
 
         # TODO: delegate this to base_generator
@@ -39,11 +39,11 @@ module Foobara
         end
 
         def add_initial_elements_to_generate
-          elements_to_generate << resque_scheduler_connector_config
+          elements_to_generate << rack_connector_config
         end
 
-        def resque_scheduler_connector_config
-          @resque_scheduler_connector_config ||= ResqueSchedulerConnectorConfig.new(inputs)
+        def rack_connector_config
+          @rack_connector_config ||= RackConnectorConfig.new(inputs)
         end
       end
     end

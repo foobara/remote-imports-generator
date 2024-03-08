@@ -1,13 +1,13 @@
-require "foobara/resque_scheduler_connector"
+require "foobara/rack_connector"
 
-resque_scheduler_connector = Foobara::CommandConnectors::ResqueSchedulerConnector.new
+rack_connector = Foobara::CommandConnectors::RackConnector.new
 
-RESQUE_SCHEDULER_CONNECTOR = resque_scheduler_connector
+RESQUE_SCHEDULER_CONNECTOR = rack_connector
 
 # Connecting commands gives an AsyncAt version of the command.
-# resque_scheduler_connector.connect(SomeCommandOrDomainOrOrganization)
+# rack_connector.connect(SomeCommandOrDomainOrOrganization)
 
-resque_scheduler_connector.cron(
+rack_connector.cron(
   [
     #   Minute (0-59)
     #   | Hour (0-23)
