@@ -5,7 +5,6 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorTo
   let(:errors) { outcome.errors }
   let(:inputs) do
     {
-      rack_connector_config:,
       output_directory:
     }
   end

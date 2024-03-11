@@ -13,7 +13,7 @@ module Foobara
         depends_on GenerateRackConnector
 
         inputs do
-          rack_connector_config RackConnectorConfig, :required
+          rack_connector_config RackConnectorConfig, default: RackConnectorConfig.new
           # TODO: should be able to delete this and inherit it
           output_directory :string
         end
