@@ -1,3 +1,5 @@
+require "foobara/rack_connector"
+
 default_serializers = [
   Foobara::CommandConnectors::Serializers::ErrorsSerializer,
   Foobara::CommandConnectors::Serializers::JsonSerializer
