@@ -42,16 +42,31 @@ module Foobara
 
         def run_post_generation_tasks
           Dir.chdir output_directory do
+            bundle_install
             rubocop_autocorrect
           end
         end
 
-        def rubocop_autocorrect
-          Open3.popen3("bundle exec rubocop --no-server -A") do |_stdin, _stdout, stderr, wait_thr|
+        def bundle_install
+          cmd = "bundle install"
+          Open3.popen3(cmd) do |_stdin, _stdout, stderr, wait_thr|
             exit_status = wait_thr.value
             unless exit_status.success?
               # :nocov:
-              warn "WARNING: could not rubocop -A. #{stderr.read}"
+              warn "WARNING: could not #{cmd}\n#{stderr.read}"
+              # :nocov:
+            end
+          end
+        end
+
+        def rubocop_autocorrect
+          cmd = "bundle exec rubocop --no-server -A"
+
+          Open3.popen3(cmd) do |stdin, _stdout, stderr, wait_thr|
+            exit_status = wait_thr.value
+            unless exit_status.success?
+              # :nocov:
+              warn "WARNING: could not #{cmd}.\n#{stdin.read}\n#{stderr.read}"
               # :nocov:
             end
           end
