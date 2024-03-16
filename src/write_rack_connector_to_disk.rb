@@ -52,12 +52,15 @@ module Foobara
           puts "bundling..."
           cmd = "bundle install"
 
-          Open3.popen3(cmd) do |_stdin, _stdout, stderr, wait_thr|
-            exit_status = wait_thr.value
-            unless exit_status.success?
-              # :nocov:
-              warn "WARNING: could not #{cmd}\n#{stderr.read}"
-              # :nocov:
+          Bundler.with_unbundled_env do
+            Open3.popen3(cmd) do |_stdin, _stdout, stderr, wait_thr|
+              exit_status = wait_thr.value
+
+              unless exit_status.success?
+                # :nocov:
+                warn "WARNING: could not #{cmd}\n#{stderr.read}"
+                # :nocov:
+              end
             end
           end
         end
