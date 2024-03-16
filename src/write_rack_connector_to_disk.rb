@@ -35,6 +35,7 @@ module Foobara
         end
 
         def generate_file_contents
+          puts "generating files..."
           # TODO: just pass this in as the inputs instead of the rack_connector??
           self.paths_to_source_code = run_subcommand!(GenerateRackConnector,
                                                       rack_connector_config.attributes)
@@ -48,7 +49,9 @@ module Foobara
         end
 
         def bundle_install
+          puts "bundling..."
           cmd = "bundle install"
+
           Open3.popen3(cmd) do |_stdin, _stdout, stderr, wait_thr|
             exit_status = wait_thr.value
             unless exit_status.success?
@@ -60,6 +63,7 @@ module Foobara
         end
 
         def rubocop_autocorrect
+          puts "linting..."
           cmd = "bundle exec rubocop --no-server -A"
 
           Open3.popen3(cmd) do |stdin, _stdout, stderr, wait_thr|
