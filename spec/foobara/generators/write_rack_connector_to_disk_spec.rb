@@ -34,7 +34,7 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorTo
     it "contains base files" do
       expect(outcome).to be_success
 
-      expect(command.paths_to_source_code.keys).to include("boot/rack.rb")
+      expect(command.paths_to_source_code.keys).to include("boot/http.rb")
     end
 
     it "updates the Gemfile" do

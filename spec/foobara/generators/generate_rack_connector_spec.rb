@@ -9,6 +9,6 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::GenerateRackConnecto
   it "generates a rack_connector" do
     expect(outcome).to be_success
 
-    expect(result.keys).to include("boot/rack.rb")
+    expect(result.keys).to include("boot/http.rb")
   end
 end
