@@ -8,9 +8,6 @@ RSpec.describe Foobara::Generators::RemoteImportsGenerator::WriteRemoteImportsTo
       output_directory:
     }
   end
-  let(:remote_imports_config) do
-    {}
-  end
   let(:output_directory) { "#{__dir__}/../../../tmp/remote_imports_test_suite_output" }
 
   around do |example|
@@ -44,19 +41,25 @@ RSpec.describe Foobara::Generators::RemoteImportsGenerator::WriteRemoteImportsTo
         command.paths_to_source_code["Gemfile"]
       ).to include('gem "foobara-remote-imports", github: "foobara/remote-imports"')
     end
-  end
 
-  describe "#output_directory" do
-    context "with no output directory" do
+    context "when there's a url and commands to list" do
       let(:inputs) do
         {
           remote_imports_config:
         }
       end
+      let(:remote_imports_config) do
+        {
+          url: "https://example.com/manifest",
+          commands: %w[SomeCommand SomeOtherCommand]
+        }
+      end
 
       it "writes files to the current directory" do
-        command.cast_and_validate_inputs
-        expect(command.output_directory).to eq(".")
+        expect(outcome).to be_success
+        remote_rb = command.paths_to_source_code["boot/remote.rb"]
+
+        expect(remote_rb).to match(/"SomeCommand", "SomeOtherCommand"/)
       end
     end
   end

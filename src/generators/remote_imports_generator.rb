@@ -8,6 +8,7 @@ module Foobara
               case manifest
               when RemoteImportsConfig
                 [
+                  Generators::BootGenerator,
                   Generators::GemfileGenerator
                 ]
               else
