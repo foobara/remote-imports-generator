@@ -1,19 +1,19 @@
-require_relative "generate_rack_connector"
+require_relative "generate_remote_imports"
 
 module Foobara
   module Generators
-    module RackConnectorGenerator
-      class WriteRackConnectorToDisk < Foobara::Generators::WriteGeneratedFilesToDisk
+    module RemoteImportsGenerator
+      class WriteRemoteImportsToDisk < Foobara::Generators::WriteGeneratedFilesToDisk
         class << self
           def generator_key
-            "rack-connector"
+            "remote-imports"
           end
         end
 
-        depends_on GenerateRackConnector
+        depends_on GenerateRemoteImports
 
         inputs do
-          rack_connector_config RackConnectorConfig, default: RackConnectorConfig.new
+          remote_imports_config RemoteImportsConfig, default: RemoteImportsConfig.new
           # TODO: should be able to delete this and inherit it
           output_directory :string
         end
@@ -36,9 +36,9 @@ module Foobara
 
         def generate_file_contents
           puts "generating files..."
-          # TODO: just pass this in as the inputs instead of the rack_connector??
-          self.paths_to_source_code = run_subcommand!(GenerateRackConnector,
-                                                      rack_connector_config.attributes)
+          # TODO: just pass this in as the inputs instead of the remote_imports??
+          self.paths_to_source_code = run_subcommand!(GenerateRemoteImports,
+                                                      remote_imports_config.attributes)
         end
 
         def run_post_generation_tasks

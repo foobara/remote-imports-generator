@@ -2,8 +2,8 @@ require "English"
 
 module Foobara
   module Generators
-    module RackConnectorGenerator
-      class RackConnectorConfig < Foobara::Model
+    module RemoteImportsGenerator
+      class RemoteImportsConfig < Foobara::Model
         attributes({})
       end
     end

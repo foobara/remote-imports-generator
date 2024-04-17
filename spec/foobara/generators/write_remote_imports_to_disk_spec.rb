@@ -1,4 +1,4 @@
-RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorToDisk do
+RSpec.describe Foobara::Generators::RemoteImportsGenerator::WriteRemoteImportsToDisk do
   let(:command) { described_class.new(inputs) }
   let(:outcome) { command.run }
   let(:result) { outcome.result }
@@ -8,10 +8,10 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorTo
       output_directory:
     }
   end
-  let(:rack_connector_config) do
+  let(:remote_imports_config) do
     {}
   end
-  let(:output_directory) { "#{__dir__}/../../../tmp/rack_connector_test_suite_output" }
+  let(:output_directory) { "#{__dir__}/../../../tmp/remote_imports_test_suite_output" }
 
   around do |example|
     FileUtils.rm_rf output_directory
@@ -42,7 +42,7 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorTo
 
       expect(
         command.paths_to_source_code["Gemfile"]
-      ).to include('gem "foobara-rack-connector", github: "foobara/rack-connector"')
+      ).to include('gem "foobara-remote-imports", github: "foobara/remote-imports"')
     end
   end
 
@@ -50,7 +50,7 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::WriteRackConnectorTo
     context "with no output directory" do
       let(:inputs) do
         {
-          rack_connector_config:
+          remote_imports_config:
         }
       end
 

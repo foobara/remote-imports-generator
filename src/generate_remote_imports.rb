@@ -1,16 +1,16 @@
 require "pathname"
 
-require_relative "rack_connector_config"
+require_relative "remote_imports_config"
 
 module Foobara
   module Generators
-    module RackConnectorGenerator
-      class GenerateRackConnector < Foobara::Generators::Generate
+    module RemoteImportsGenerator
+      class GenerateRemoteImports < Foobara::Generators::Generate
         class MissingManifestError < RuntimeError; end
 
         possible_error MissingManifestError
 
-        inputs RackConnectorConfig
+        inputs RemoteImportsConfig
 
         def execute
           include_non_templated_files
@@ -27,7 +27,7 @@ module Foobara
         attr_accessor :manifest_data
 
         def base_generator
-          Generators::RackConnectorGenerator
+          Generators::RemoteImportsGenerator
         end
 
         # TODO: delegate this to base_generator
@@ -39,11 +39,11 @@ module Foobara
         end
 
         def add_initial_elements_to_generate
-          elements_to_generate << rack_connector_config
+          elements_to_generate << remote_imports_config
         end
 
-        def rack_connector_config
-          @rack_connector_config ||= RackConnectorConfig.new(inputs)
+        def remote_imports_config
+          @remote_imports_config ||= RemoteImportsConfig.new(inputs)
         end
       end
     end

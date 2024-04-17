@@ -1,4 +1,4 @@
-RSpec.describe Foobara::Generators::RackConnectorGenerator::GenerateRackConnector do
+RSpec.describe Foobara::Generators::RemoteImportsGenerator::GenerateRemoteImports do
   let(:inputs) do
     {}
   end
@@ -6,7 +6,7 @@ RSpec.describe Foobara::Generators::RackConnectorGenerator::GenerateRackConnecto
   let(:outcome) { command.run }
   let(:result) { outcome.result }
 
-  it "generates a rack_connector" do
+  it "generates a remote_imports" do
     expect(outcome).to be_success
 
     expect(result.keys).to include("boot/http.rb")

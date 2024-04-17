@@ -1,10 +1,10 @@
 module Foobara
   module Generators
-    module RackConnectorGenerator
+    module RemoteImportsGenerator
       module Generators
         # Kind of tricky... for the first time we will be loading an existing file in the working directory
         # and modifying it.
-        class GemfileGenerator < RackConnectorGenerator
+        class GemfileGenerator < RemoteImportsGenerator
           def template_path
             "Gemfile"
           end
@@ -19,12 +19,12 @@ module Foobara
             match = contents.match(/^gem /)
 
             if match
-              new_entry = 'gem "foobara-rack-connector", github: "foobara/rack-connector"'
+              new_entry = 'gem "foobara-remote-imports", github: "foobara/remote-imports"'
               "#{match.pre_match}\n#{new_entry}\n#{match}#{match.post_match}"
             else
               # TODO: maybe print a warning and return the original Gemfile
               # :nocov:
-              raise "Not sure how to inject rack_connector into the Gemfile"
+              raise "Not sure how to inject remote_imports into the Gemfile"
               # :nocov:
             end
           end

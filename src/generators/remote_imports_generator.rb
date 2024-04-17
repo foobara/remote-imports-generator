@@ -1,12 +1,12 @@
 module Foobara
   module Generators
-    module RackConnectorGenerator
+    module RemoteImportsGenerator
       module Generators
-        class RackConnectorGenerator < Foobara::FilesGenerator
+        class RemoteImportsGenerator < Foobara::FilesGenerator
           class << self
             def manifest_to_generator_classes(manifest)
               case manifest
-              when RackConnectorConfig
+              when RemoteImportsConfig
                 [
                   Generators::GemfileGenerator
                 ]
@@ -18,7 +18,7 @@ module Foobara
             end
           end
 
-          alias rack_connector_config relevant_manifest
+          alias remote_imports_config relevant_manifest
 
           def templates_dir
             # :nocov:
@@ -29,12 +29,12 @@ module Foobara
           # TODO: promote this up to base project
           def ==(other)
             # :nocov:
-            self.class == other.class && rack_connector_config == other.rack_connector_config
+            self.class == other.class && remote_imports_config == other.remote_imports_config
             # :nocov:
           end
 
           def hash
-            rack_connector_config.hash
+            remote_imports_config.hash
           end
         end
       end
