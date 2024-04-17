@@ -9,6 +9,6 @@ RSpec.describe Foobara::Generators::RemoteImportsGenerator::GenerateRemoteImport
   it "generates a remote_imports" do
     expect(outcome).to be_success
 
-    expect(result.keys).to include("boot/http.rb")
+    expect(result.keys).to include("boot/remote.rb")
   end
 end
