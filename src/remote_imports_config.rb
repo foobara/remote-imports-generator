@@ -13,7 +13,7 @@ module Foobara
           if commands && !commands.empty?
             commands_ruby = commands.map { |command| "\"#{command}\"" }.join(", ")
 
-            "\n, commands: [#{commands_ruby}]"
+            ",\nto_import: [#{commands_ruby}]"
           end
         end
       end

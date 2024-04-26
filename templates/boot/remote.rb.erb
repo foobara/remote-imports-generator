@@ -1,16 +1,11 @@
 require "foobara/remote_imports"
 
 # Leave off to_import if you want to import all commands in the manifest
-# Include cache: false if you want to invalidate the local cache
+# Change cache to false if you want to invalidate the local cache
 <% if url %>
 Foobara::RemoteImports::ImportCommand.run!(
   manifest_url: "<%= url %>"<%= to_import_list %>,
   cache: true
 )
 <% else %>
-# Foobara::RemoteImports::ImportCommand.run!(
-#   url: "http://example.com/manifest",
-#   to_import: ["SomeCommand"],
-#   cache: true
-# )
 <% end %>
