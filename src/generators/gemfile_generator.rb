@@ -2,9 +2,11 @@ module Foobara
   module Generators
     module RemoteImportsGenerator
       module Generators
-        # Kind of tricky... for the first time we will be loading an existing file in the working directory
-        # and modifying it.
         class GemfileGenerator < RemoteImportsGenerator
+          def applicable?
+            gemfile_contents !~ /^\s*gem\s*["']foobara-remote-imports\b/
+          end
+
           def template_path
             "Gemfile"
           end
@@ -14,9 +16,7 @@ module Foobara
           end
 
           def generate(_elements_to_generate)
-            contents = File.read(template_path)
-
-            match = contents.match(/^gem /)
+            match = gemfile_contents.match(/^gem /)
 
             if match
               new_entry = 'gem "foobara-remote-imports", github: "foobara/remote-imports"'
@@ -27,6 +27,10 @@ module Foobara
               raise "Not sure how to inject remote_imports into the Gemfile"
               # :nocov:
             end
+          end
+
+          def gemfile_contents
+            File.read(template_path)
           end
         end
       end
